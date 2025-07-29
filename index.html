@@ -1,344 +1,263 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV Interaktif - Rizki Bagas Ardiasama - Calon Personal Trainer</title>
-    
-    <!-- Tailwind CSS -->
+    <title>Rizki Bagas Ardiasama - CV Profesional</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Menggunakan font Poppins sebagai default */
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #111827; /* Dark blue-gray background */
-            color: #E5E7EB; /* Light gray text */
+            font-family: 'Inter', sans-serif;
+            background-color: #1c1917; /* stone-900 */
         }
-        /* Gradient untuk judul */
-        .gradient-text {
-            background: linear-gradient(to right, #38bdf8, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-fill-color: transparent;
+        .main-card {
+            background-color: #262626; /* neutral-800 */
+            color: #d4d4d4; /* neutral-300 */
         }
-        
-        /* CSS SLIDER GAMBAR */
-        .comparison-slider {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin: auto;
-            overflow: hidden;
-            border-radius: 0.75rem;
-            border: 3px solid #38bdf8;
+        /* --- Skema Warna Oranye Profesional --- */
+        .icon-sidebar {
+             background-color: #431407; /* orange-950 */
         }
-        .comparison-slider img {
+        .profile-section {
+            background-color: #7c2d12; /* orange-800 */
+            color: #ffedd5; /* orange-100 */
+        }
+        .skill-bar-bg {
+            background-color: #44403c; /* stone-700 */
+        }
+        .skill-bar {
+            background-color: #f97316; /* orange-500 */
+            transition: width 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .nav-icon.active {
+            color: #f97316; /* orange-500 */
+            background-color: #92400e; /* amber-800 */
+        }
+        .nav-icon {
+            color: #fed7aa; /* orange-200 */
+        }
+        .nav-icon:hover {
+            color: #ffffff; /* white */
+            background-color: #92400e; /* amber-800 */
+        }
+        .social-icon:hover {
+            color: #ffffff; /* white */
+            transform: scale(1.1);
+        }
+        .accent-text {
+            color: #fb923c; /* orange-400 */
+        }
+        .toast-notification {
+            background-color: #f97316; /* orange-500 */
+        }
+        /* --- Fungsionalitas Tab --- */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .tab-content.active {
             display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            pointer-events: none;
         }
-        .comparison-slider .img-top {
-            position: absolute;
-            top: 0;
-            left: 0;
-            clip-path: inset(0 50% 0 0);
-        }
-        .comparison-slider .slider-handle {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            height: 100%;
-            width: 4px;
-            background-color: #38bdf8;
-            cursor: ew-resize;
-            z-index: 10;
-        }
-        .comparison-slider .handle-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            background-color: #38bdf8;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <!-- Header & Navigasi -->
-    <header class="bg-gray-900/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-lg">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#hero" class="text-xl font-bold gradient-text">Bagas</a>
-            <nav class="hidden md:flex space-x-8 text-sm font-semibold">
-                <a href="#story" class="hover:text-sky-400 transition-colors">Kisah Saya</a>
-                <a href="#philosophy" class="hover:text-sky-400 transition-colors">Filosofi</a>
-                <a href="#experience" class="hover:text-sky-400 transition-colors">Pengalaman</a>
-                <a href="#why-me" class="hover:text-sky-400 transition-colors">Mengapa Saya?</a>
-                <a href="#contact" class="hover:text-sky-400 transition-colors">Kontak</a>
-            </nav>
-            <button id="mobile-menu-button" class="md:hidden text-2xl">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <a href="#story" class="block py-2 text-center hover:bg-gray-700 rounded">Kisah Saya</a>
-            <a href="#philosophy" class="block py-2 text-center hover:bg-gray-700 rounded">Filosofi</a>
-            <a href="#experience" class="block py-2 text-center hover:bg-gray-700 rounded">Pengalaman</a>
-            <a href="#why-me" class="block py-2 text-center hover:bg-gray-700 rounded">Mengapa Saya?</a>
-            <a href="#contact" class="block py-2 text-center hover:bg-gray-700 rounded">Kontak</a>
-        </div>
-    </header>
+    <div class="container mx-auto max-w-7xl my-8 sm:my-12 p-4">
+        <div class="main-card rounded-2xl shadow-2xl shadow-black/40 overflow-hidden flex flex-col md:flex-row min-h-[85vh]">
+            
+            <!-- Kolom Kiri Penuh (Sidebar Ikon + Profil) -->
+            <aside class="w-full md:w-2/5 lg:w-1/3 flex">
+                <!-- Sidebar Ikon Ramping (Tab Triggers) -->
+                <div id="tab-navigation" class="icon-sidebar p-4 sm:p-6 flex flex-col items-center justify-start space-y-4">
+                    <a href="#" class="font-bold text-lg text-orange-400 mb-6">RBA</a>
+                    <a href="#" data-tab="summary" class="nav-icon active p-3 rounded-lg transition-colors" title="Bio"><i data-lucide="user-round"></i></a>
+                    <a href="#" data-tab="skills" class="nav-icon p-3 rounded-lg transition-colors" title="Skills"><i data-lucide="sparkles"></i></a>
+                    <a href="#" data-tab="experience" class="nav-icon p-3 rounded-lg transition-colors" title="Experience"><i data-lucide="briefcase"></i></a>
+                    <a href="#" data-tab="education" class="nav-icon p-3 rounded-lg transition-colors" title="Education"><i data-lucide="graduation-cap"></i></a>
+                </div>
 
-    <main>
-        <!-- Bagian Hero -->
-        <section id="hero" class="min-h-screen flex items-center bg-gray-900 pt-20">
-            <div class="container mx-auto px-6 text-center">
-                <div class="max-w-4xl mx-auto">
-                    <!-- FOTO PROFIL UTAMA (ASLI DARI CV) -->
-                    <img src="https://imgpx.com/6pEczGIIiiJx.png" alt="Foto Profil Rizki Bagas Ardiasama" class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-sky-400 object-cover" style="object-position: center 35%;">
-                    <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
-                        Saya Tidak Hanya Belajar Fitness, <span class="gradient-text">Saya Menjalaninya.</span>
-                    </h1>
-                    <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                        Seorang calon Personal Trainer yang bersemangat dengan bukti nyata transformasi dari 115kg menjadi 68kg, siap membimbing klien dengan empati dan komunikasi yang efektif.
+                <!-- Bagian Profil dengan Foto Selfie -->
+                <div class="profile-section flex-1 p-6 sm:p-8 flex flex-col items-center text-center">
+                    <div class="w-full max-w-xs h-auto rounded-lg overflow-hidden shadow-lg">
+                        <img src="https://imgpx.com/n6mHBTW5hI53.jpg" alt="Foto Profil Rizki Bagas Ardiasama" class="w-full h-full object-cover">
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-6">Rizki Bagas Ardiasama</h1>
+                    
+                    <div class="mt-auto pt-8 flex space-x-6">
+                         <a href="mailto:ardiasamab@gmail.com" class="social-icon text-orange-200 transition-all" title="Email"><i data-lucide="mail"></i></a>
+                        <a href="https://www.linkedin.com/in/rizki-bagas-ardiasama-b0a428224/" target="_blank" rel="noopener noreferrer" class="social-icon text-orange-200 transition-all" title="LinkedIn"><i data-lucide="linkedin"></i></a>
+                        <button onclick="copyToClipboard('083861580009')" class="social-icon text-orange-200 transition-all" title="Salin Nomor Telepon">
+                            <i data-lucide="phone"></i>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Kolom Kanan (Konten Utama) -->
+            <main class="w-full md:w-3/5 lg:w-2/3 p-8 sm:p-12 overflow-y-auto">
+                <!-- Bagian Ringkasan -->
+                <section id="summary" class="tab-content active">
+                    <h2 class="text-4xl font-bold text-white tracking-tight">Bio</h2>
+                    <p class="mt-2 text-sm accent-text">Bachelor's Degree in English Education</p>
+                    <p class="mt-6 text-neutral-300 leading-relaxed">
+                        A dedicated and goal-oriented young professional with strong bilingual (Indonesian & English) communication skills. I combine a proven track record of achieving results through discipline with what some might call a 'weirdly' effective and creative approach to problem-solving. As a bit of a geek for data and efficiency, I am eager to apply my analytical abilities, strong work ethic, and a dash of good humor to contribute positively to a dynamic and challenging work environment.
                     </p>
-                    <a href="#story" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-8 rounded-full text-lg transition-transform transform hover:scale-105 inline-block">
-                        Lihat Transformasi Saya <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Bagian Kisah Saya (INTERAKTIF) -->
-        <section id="story" class="py-20 bg-gray-800">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-2">Perjalanan Saya: 115kg &rarr; 68kg</h2>
-                    <p class="text-gray-400 max-w-2xl mx-auto">Geser untuk melihat perubahan. Ini adalah bukti bahwa dengan tekad, segalanya mungkin.</p>
-                </div>
+                </section>
                 
-                <!-- HTML SLIDER GAMBAR -->
-                <div class="comparison-slider" id="comparison-slider">
-                    <!-- Gambar bawah (After) -->
-                    <img src="https://i.ibb.co/2Xrzsdh/20231103-165932.jpg" alt="After - 68kg" class="img-bottom">
-                    <!-- Gambar atas (Before) -->
-                    <img src="https://i.ibb.co/jPyT16G2/Whats-App-Image-2025-07-19-at-13-42-51.jpg" alt="Before - 115kg" class="img-top">
-                    <!-- Handle untuk digeser -->
-                    <div class="slider-handle">
-                        <div class="handle-icon">
-                            <i class="fas fa-arrows-alt-h"></i>
+                <!-- Bagian Keahlian -->
+                <section id="skills" class="tab-content">
+                    <h2 class="text-3xl font-bold text-white mb-6">Skills</h2>
+                    <div class="space-y-6">
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1"><span class="text-sm font-medium text-neutral-200">Bilingual Communication (Indonesian & English)</span><span class="text-sm font-medium accent-text">95%</span></div>
+                            <div class="w-full skill-bar-bg rounded-full h-1.5"><div class="skill-bar h-1.5 rounded-full" data-width="95%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1"><span class="text-sm font-medium text-neutral-200">Discipline & Consistency</span><span class="text-sm font-medium accent-text">93%</span></div>
+                            <div class="w-full skill-bar-bg rounded-full h-1.5"><div class="skill-bar h-1.5 rounded-full" data-width="93%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1"><span class="text-sm font-medium text-neutral-200">Interpersonal Skills</span><span class="text-sm font-medium accent-text">92%</span></div>
+                            <div class="w-full skill-bar-bg rounded-full h-1.5"><div class="skill-bar h-1.5 rounded-full" data-width="92%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1"><span class="text-sm font-medium text-neutral-200">Microsoft Office Suite</span><span class="text-sm font-medium accent-text">90%</span></div>
+                            <div class="w-full skill-bar-bg rounded-full h-1.5"><div class="skill-bar h-1.5 rounded-full" data-width="90%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1"><span class="text-sm font-medium text-neutral-200">Analytical & Problem-Solving Skills</span><span class="text-sm font-medium accent-text">88%</span></div>
+                            <div class="w-full skill-bar-bg rounded-full h-1.5"><div class="skill-bar h-1.5 rounded-full" data-width="88%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1"><span class="text-sm font-medium text-neutral-200">Target & Project Management</span><span class="text-sm font-medium accent-text">85%</span></div>
+                            <div class="w-full skill-bar-bg rounded-full h-1.5"><div class="skill-bar h-1.5 rounded-full" data-width="85%"></div></div>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                <div class="max-w-3xl mx-auto mt-12 text-center text-gray-300 space-y-4">
-                    <p>Perjalanan ini lebih dari sekadar angka di timbangan. Ini adalah tentang menemukan kembali energi, kepercayaan diri, dan hasrat untuk hidup. Saya pernah berada di posisi di mana memulai terasa mustahil. Rasa sakit, keraguan, dan tantangan adalah bagian dari proses. Karena itulah, saya memahami setiap langkah yang akan Anda ambil, bukan sebagai instruktur, tapi sebagai seseorang yang pernah menempuh jalan yang sama.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Bagian Filosofi -->
-        <section id="philosophy" class="py-20">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-2">Filosofi Latihan Saya</h2>
-                    <p class="text-gray-400">Pendekatan saya sederhana: berkelanjutan, menyenangkan, dan efektif.</p>
-                </div>
-                <div class="grid md:grid-cols-3 gap-8 text-center">
-                    <div class="bg-gray-800 p-8 rounded-xl transform hover:-translate-y-2 transition-transform">
-                        <i class="fas fa-running text-4xl text-sky-400 mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Latihan adalah Perayaan</h3>
-                        <p class="text-gray-400">Bukan hukuman. Kita akan fokus pada apa yang bisa dilakukan tubuh Anda dan merayakan setiap kemajuan kecil.</p>
-                    </div>
-                    <div class="bg-gray-800 p-8 rounded-xl transform hover:-translate-y-2 transition-transform">
-                        <i class="fas fa-seedling text-4xl text-green-400 mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Konsistensi > Intensitas</h3>
-                        <p class="text-gray-400">Membangun kebiasaan yang bertahan lama jauh lebih penting daripada latihan berat sesekali yang membuat Anda kapok.</p>
-                    </div>
-                    <div class="bg-gray-800 p-8 rounded-xl transform hover:-translate-y-2 transition-transform">
-                        <i class="fas fa-balance-scale text-4xl text-purple-400 mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Keseimbangan & Realitas</h3>
-                        <p class="text-gray-400">Nutrisi dan latihan harus sesuai dengan gaya hidup Anda, bukan sebaliknya. Tidak ada diet ekstrem, hanya pola hidup sehat.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Bagian Pengalaman & Pendidikan -->
-        <section id="experience" class="py-20 bg-gray-800">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-2">Pengalaman & Pendidikan</h2>
-                    <p class="text-gray-400">Latar belakang yang membentuk keahlian saya.</p>
-                </div>
-                <div class="max-w-3xl mx-auto space-y-8">
-                    <!-- Pengalaman -->
-                    <div class="bg-gray-900 p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-sky-400">English Translator</h3>
-                        <p class="font-semibold">PT Raytu Lancar Indonesia | Brebes, Jawa Tengah</p>
-                        <p class="text-sm text-gray-400 mb-3">Nov 2024 – Feb 2025 (Berdasarkan CV)</p>
-                        <ul class="list-disc pl-5 text-gray-300 space-y-2">
-                            <li>Memfasilitasi komunikasi yang jelas dan efektif—sebuah keahlian kunci untuk menjelaskan teknik latihan yang kompleks kepada klien.</li>
-                            <li>Mengelola dan menerjemahkan dokumen, menunjukkan ketelitian dan kemampuan organisasi untuk melacak kemajuan klien.</li>
-                            <li>Membantu tugas administratif, membuktikan kemampuan untuk mengelola jadwal dan informasi klien secara profesional.</li>
-                        </ul>
-                    </div>
-                    <!-- Pendidikan -->
-                    <div class="bg-gray-900 p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-sky-400">S1 Pendidikan Bahasa Inggris</h3>
-                        <p class="font-semibold">Universitas Terbuka</p>
-                        <p class="text-sm text-gray-400 mb-3">Diharapkan Lulus: November 2025</p>
-                        <p class="text-gray-300"><strong>Mata Kuliah Relevan:</strong> Komunikasi Bisnis, Komunikasi Lintas Budaya—fondasi kuat untuk berinteraksi dengan beragam klien.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Bagian Mengapa Saya? -->
-        <section id="why-me" class="py-20">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col md:flex-row items-center gap-12">
-                    <div class="md:w-1/2 text-center md:text-left">
-                        <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                            Komunikasi yang Jelas, <span class="gradient-text">Hasil yang Lebih Baik.</span>
-                        </h2>
-                        <p class="text-gray-300 mb-6">Pengalaman saya sebagai English Translator bukan hanya tentang bahasa. Ini tentang kemampuan untuk menyampaikan instruksi yang kompleks menjadi sederhana, jelas, dan mudah dipahami. Di gym, ini berarti:</p>
-                        <ul class="space-y-4 text-left">
-                            <li class="flex items-start"><i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i><span>Instruksi latihan yang presisi dan aman, dalam Bahasa Indonesia maupun Inggris.</span></li>
-                            <li class="flex items-start"><i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i><span>Kemampuan melayani klien internasional dan ekspatriat, memberikan nilai tambah bagi gym Anda.</span></li>
-                            <li class="flex items-start"><i class="fas fa-check-circle text-sky-400 mt-1 mr-3"></i><span>Membangun hubungan yang kuat dengan klien melalui komunikasi yang empatik dan efektif.</span></li>
-                        </ul>
-                    </div>
-                    <div class="md:w-1/2 flex justify-center items-center">
-                        <div class="relative">
-                            <div class="absolute -top-4 -left-4 w-full h-full bg-sky-500 rounded-xl transform -rotate-6"></div>
-                            <div class="relative bg-gray-800 p-8 rounded-xl shadow-lg">
-                                <i class="fas fa-language text-7xl text-white"></i>
-                                <p class="mt-4 font-bold text-2xl">Komunikasi Bilingual</p>
-                                <p class="text-gray-400">Indonesia & English</p>
-                            </div>
+                <!-- Bagian Pengalaman -->
+                <section id="experience" class="tab-content">
+                    <h2 class="text-3xl font-bold text-white mb-6">Work Experience</h2>
+                    <div class="space-y-8">
+                        <div>
+                            <p class="text-xs text-neutral-400">November 2024 – February 2025</p>
+                            <h3 class="font-semibold text-neutral-100 mt-1">English Translator</h3>
+                            <p class="text-sm text-neutral-400 mb-2">PT Raytu Lancar Indonesia | Brebes, Central Java</p>
+                            <ul class="list-disc list-inside text-sm text-neutral-400 space-y-1">
+                                <li>Translated a variety of business and technical documents with a keen focus on accuracy and contextual relevance.</li>
+                                <li>Facilitated effective communication between parties from diverse linguistic backgrounds.</li>
+                                <li>Managed multiple translation projects concurrently, ensuring timely completion and adherence to deadlines.</li>
+                                <li>Distilled complex information into clear, concise, and easily understandable language.</li>
+                            </ul>
+                        </div>
+                         <div>
+                            <p class="text-xs text-neutral-400">September 2022 – March 2024</p>
+                            <h3 class="font-semibold text-neutral-100 mt-1">Waiter</h3>
+                            <p class="text-sm text-neutral-400 mb-2">Kampung Nasi Indonesia | Semarang, Central Java</p>
+                             <ul class="list-disc list-inside text-sm text-neutral-400 space-y-1">
+                                <li>Greeted customers, presented menus, and provided detailed information regarding culinary offerings.</li>
+                                <li>Accurately recorded food and beverage orders and relayed them to kitchen staff with precision.</li>
+                                <li>Served dishes to patrons in a friendly, efficient, and professional manner, upholding service standards.</li>
+                                <li>Ensured customer satisfaction throughout their dining experience and adeptly resolved any issues that arose.</li>
+                                <li>Processed payments and maintained the cleanliness and orderliness of the dining area.</li>
+                            </ul>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Bagian Kontak -->
-        <section id="contact" class="py-20 bg-gray-900">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-2">Mari Mulai Transformasi Anda</h2>
-                    <p class="text-gray-400">Saya sangat antusias untuk membahas bagaimana saya bisa berkontribusi di tim Anda.</p>
-                </div>
-                <div class="max-w-lg mx-auto text-center">
-                    <div class="bg-gray-800 p-8 rounded-xl shadow-lg">
-                        <p class="mb-2 font-bold text-lg">Rizki Bagas Ardiasama</p>
-                        <p class="mb-6 text-gray-400">Brebes, Jawa Tengah</p>
-                        <a href="mailto:ardiasamab@gmail.com" class="block bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-6 rounded-lg mb-4 transition-colors w-full">
-                            <i class="fas fa-envelope mr-2"></i> ardiasamab@gmail.com
-                        </a>
-                        <a href="tel:083861580009" class="block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg mb-4 transition-colors w-full">
-                            <i class="fab fa-whatsapp mr-2"></i> 0838-6158-0009
-                        </a>
-                        <div class="flex justify-center space-x-6 mt-6 text-3xl">
-                            <a href="https://id.linkedin.com/in/rizki-bagas-ardiasama-b0a428224" target="_blank" class="text-gray-400 hover:text-sky-400 transition-colors"><i class="fab fa-linkedin"></i></a>
-                        </div>
+                </section>
+
+                <!-- Bagian Pendidikan -->
+                <section id="education" class="tab-content">
+                    <h2 class="text-3xl font-bold text-white mb-6">Education</h2>
+                     <div>
+                        <p class="text-xs text-neutral-400">Expected Graduation: November 2025</p>
+                        <h3 class="font-semibold text-neutral-100 mt-1">Bachelor of English Education</h3>
+                        <p class="text-sm text-neutral-400 mb-2">Universitas Terbuka (Indonesia Open University)</p>
+                        <p class="text-sm text-neutral-400">
+                            Developing a comprehensive understanding of effective communication methodologies, pedagogy, and linguistics.
+                        </p>
                     </div>
-                </div>
-            </div>
-        </section>
-    </main>
-    
-    <footer class="bg-gray-900 text-center py-6">
-        <p class="text-gray-500">&copy; <span id="year"></span> Rizki Bagas Ardiasama. Dibuat dengan semangat untuk menginspirasi.</p>
-    </footer>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Notifikasi Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 toast-notification text-white px-5 py-3 rounded-lg shadow-xl translate-x-[120%] transform transition-transform duration-300 ease-in-out">
+        Disalin ke clipboard!
+    </div>
 
     <script>
-        // Mobile Menu Toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-        
-        document.querySelectorAll('#mobile-menu a, .container a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                if(e.target.closest('#mobile-menu')) {
-                    mobileMenu.classList.add('hidden');
+        // Inisialisasi Ikon Lucide
+        lucide.createIcons();
+
+        const tabNavContainer = document.getElementById('tab-navigation');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const navIcons = tabNavContainer.querySelectorAll('.nav-icon');
+
+        tabNavContainer.addEventListener('click', (e) => {
+            e.preventDefault();
+            const clickedTab = e.target.closest('a.nav-icon');
+            if (!clickedTab) return;
+
+            navIcons.forEach(icon => icon.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            clickedTab.classList.add('active');
+
+            const tabId = clickedTab.dataset.tab;
+            const activeContent = document.getElementById(tabId);
+            if (activeContent) {
+                activeContent.classList.add('active');
+                
+                if (tabId === 'skills') {
+                    animateSkillBars();
                 }
-            });
+            }
         });
 
-        // Set current year in footer
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // JAVASCRIPT SLIDER GAMBAR
-        const slider = document.getElementById('comparison-slider');
-        const topImage = slider.querySelector('.img-top');
-        const handle = slider.querySelector('.slider-handle');
-
-        let isDragging = false;
-
-        function startDrag(e) {
-            isDragging = true;
-            slider.classList.add('dragging'); 
+        function animateSkillBars() {
+            const skillBars = document.querySelectorAll('#skills .skill-bar');
+            skillBars.forEach(bar => bar.style.width = '0%');
+            setTimeout(() => {
+                skillBars.forEach(bar => {
+                    bar.style.width = bar.dataset.width;
+                });
+            }, 100);
         }
 
-        function stopDrag() {
-            isDragging = false;
-            slider.classList.remove('dragging');
+        function copyToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-9999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast(`"${text}" disalin ke clipboard!`);
+            } catch (err) {
+                showToast('Tidak dapat menyalin teks.', true);
+            }
+            document.body.removeChild(textArea);
         }
 
-        function onDrag(e) {
-            if (!isDragging) return;
-
-            e.preventDefault(); 
-
-            let rect = slider.getBoundingClientRect();
-            let x = (e.clientX || e.touches[0].clientX) - rect.left;
-            
-            x = Math.max(0, Math.min(x, rect.width));
-            
-            let percent = (x / rect.width) * 100;
-            
-            handle.style.left = percent + '%';
-            
-            topImage.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `fixed bottom-5 right-5 text-white px-5 py-3 rounded-lg shadow-xl transform transition-transform duration-300 ease-in-out ${isError ? 'bg-red-600' : 'toast-notification'} translate-x-0`;
+            setTimeout(() => {
+                toast.classList.add('translate-x-[120%]');
+            }, 3000);
         }
-
-        // Event listener untuk mouse
-        slider.addEventListener('mousedown', startDrag);
-        document.addEventListener('mouseup', stopDrag);
-        document.addEventListener('mousemove', onDrag);
-
-        // Event listener untuk sentuhan (touch)
-        slider.addEventListener('touchstart', startDrag, { passive: false });
-        document.addEventListener('touchend', stopDrag);
-        document.addEventListener('touchmove', onDrag, { passive: false });
-
     </script>
-
 </body>
 </html>
