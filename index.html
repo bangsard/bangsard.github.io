@@ -20,7 +20,7 @@
         }
         /* --- Skema Warna Oranye Profesional --- */
         .icon-sidebar {
-             background-color: #431407; /* orange-950 */
+            background-color: #431407; /* orange-950 */
         }
         .profile-section {
             background-color: #7c2d12; /* orange-800 */
@@ -68,7 +68,7 @@
         }
     </style>
 </head>
-<body>
+<body class="bg-stone-900">
 
     <div class="container mx-auto max-w-7xl my-8 sm:my-12 p-4">
         <div class="main-card rounded-2xl shadow-2xl shadow-black/40 overflow-hidden flex flex-col md:flex-row min-h-[85vh]">
@@ -86,17 +86,29 @@
 
                 <!-- Bagian Profil dengan Foto Selfie -->
                 <div class="profile-section flex-1 p-6 sm:p-8 flex flex-col items-center text-center">
-                    <div class="w-full max-w-xs h-auto rounded-lg overflow-hidden shadow-lg">
-                        <img src="https://imgpx.com/n6mHBTW5hI53.jpg" alt="Foto Profil Rizki Bagas Ardiasama" class="w-full h-full object-cover">
+                    <!-- GAMBAR PROFIL DIPERBARUI -->
+                    <div class="w-full max-w-xs rounded-lg overflow-hidden shadow-lg border-4 border-orange-950/50">
+                        <img src="https://imgpx.com/n6mHBTW5hI53.jpg" 
+                             onerror="this.onerror=null;this.src='https://placehold.co/400x400/ffedd5/7c2d12?text=Gagal+Muat';"
+                             alt="Foto Profil Rizki Bagas Ardiasama" class="w-full h-auto object-cover">
                     </div>
                     <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-6">Rizki Bagas Ardiasama</h1>
                     
+                    <!-- TOMBOL DOWNLOAD CV -->
+                    <a href="https://bangsard.github.io/MY%20CV%20-%20Rizki%20Bagas%20Ardiasama.pdf" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="mt-4 inline-flex items-center justify-center px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg shadow-md transition-colors duration-300">
+                        <i data-lucide="download" class="mr-2 h-5 w-5"></i>
+                        Download CV
+                    </a>
+                    
                     <div class="mt-auto pt-8 flex space-x-6">
                          <a href="mailto:ardiasamab@gmail.com" class="social-icon text-orange-200 transition-all" title="Email"><i data-lucide="mail"></i></a>
-                        <a href="https://www.linkedin.com/in/rizki-bagas-ardiasama-b0a428224/" target="_blank" rel="noopener noreferrer" class="social-icon text-orange-200 transition-all" title="LinkedIn"><i data-lucide="linkedin"></i></a>
-                        <button onclick="copyToClipboard('083861580009')" class="social-icon text-orange-200 transition-all" title="Salin Nomor Telepon">
-                            <i data-lucide="phone"></i>
-                        </button>
+                         <a href="https://www.linkedin.com/in/rizki-bagas-ardiasama-b0a428224/" target="_blank" rel="noopener noreferrer" class="social-icon text-orange-200 transition-all" title="LinkedIn"><i data-lucide="linkedin"></i></a>
+                         <button onclick="copyToClipboard('083861580009', 'Nomor telepon')" class="social-icon text-orange-200 transition-all" title="Salin Nomor Telepon">
+                             <i data-lucide="phone"></i>
+                         </button>
                     </div>
                 </div>
             </aside>
@@ -148,7 +160,7 @@
                     <h2 class="text-3xl font-bold text-white mb-6">Work Experience</h2>
                     <div class="space-y-8">
                         <div>
-                            <p class="text-xs text-neutral-400">November 2024 – February 2025</p>
+                            <p class="text-xs text-neutral-400">November 2023 – February 2024</p>
                             <h3 class="font-semibold text-neutral-100 mt-1">English Translator</h3>
                             <p class="text-sm text-neutral-400 mb-2">PT Raytu Lancar Indonesia | Brebes, Central Java</p>
                             <ul class="list-disc list-inside text-sm text-neutral-400 space-y-1">
@@ -191,7 +203,7 @@
 
     <!-- Notifikasi Toast -->
     <div id="toast" class="fixed bottom-5 right-5 toast-notification text-white px-5 py-3 rounded-lg shadow-xl translate-x-[120%] transform transition-transform duration-300 ease-in-out">
-        Disalin ke clipboard!
+        Pesan notifikasi.
     </div>
 
     <script>
@@ -217,6 +229,7 @@
             if (activeContent) {
                 activeContent.classList.add('active');
                 
+                // Animasikan skill bar hanya saat tab keahlian aktif
                 if (tabId === 'skills') {
                     animateSkillBars();
                 }
@@ -225,7 +238,9 @@
 
         function animateSkillBars() {
             const skillBars = document.querySelectorAll('#skills .skill-bar');
+            // Reset dulu lebarnya agar animasi bisa berjalan setiap kali tab diklik
             skillBars.forEach(bar => bar.style.width = '0%');
+            // Beri sedikit jeda agar transisi CSS bisa berjalan
             setTimeout(() => {
                 skillBars.forEach(bar => {
                     bar.style.width = bar.dataset.width;
@@ -233,30 +248,57 @@
             }, 100);
         }
 
-        function copyToClipboard(text) {
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            textArea.style.position = 'fixed';
-            textArea.style.left = '-9999px';
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                showToast(`"${text}" disalin ke clipboard!`);
-            } catch (err) {
-                showToast('Tidak dapat menyalin teks.', true);
+        // FUNGSI COPYTOKLIPBOARD DIPERBARUI
+        function copyToClipboard(text, subject = 'Teks') {
+            if (navigator.clipboard && window.isSecureContext) {
+                // Metode modern dan aman
+                navigator.clipboard.writeText(text)
+                    .then(() => {
+                        showToast(`${subject} berhasil disalin!`);
+                    })
+                    .catch(err => {
+                        showToast(`Gagal menyalin: ${err}`, true);
+                    });
+            } else {
+                // Metode fallback untuk browser lama atau koneksi tidak aman
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-9999px';
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast(`${subject} berhasil disalin!`);
+                } catch (err) {
+                    showToast('Gagal menyalin teks.', true);
+                }
+                document.body.removeChild(textArea);
             }
-            document.body.removeChild(textArea);
         }
 
         function showToast(message, isError = false) {
             const toast = document.getElementById('toast');
             toast.textContent = message;
-            toast.className = `fixed bottom-5 right-5 text-white px-5 py-3 rounded-lg shadow-xl transform transition-transform duration-300 ease-in-out ${isError ? 'bg-red-600' : 'toast-notification'} translate-x-0`;
+            // Reset kelas dan terapkan kelas yang sesuai
+            toast.className = `fixed bottom-5 right-5 text-white px-5 py-3 rounded-lg shadow-xl transform transition-transform duration-500 ease-in-out ${isError ? 'bg-red-600' : 'toast-notification'}`;
+            
+            // Tampilkan toast
+            toast.classList.remove('translate-x-[120%]');
+            toast.classList.add('translate-x-0');
+
+            // Sembunyikan setelah beberapa detik
             setTimeout(() => {
+                toast.classList.remove('translate-x-0');
                 toast.classList.add('translate-x-[120%]');
             }, 3000);
+        }
+
+        // Animasikan skill bar pada saat halaman pertama kali dimuat jika tab 'skills' aktif
+        // (Meskipun defaultnya tab 'summary' yang aktif, ini untuk jaga-jaga)
+        if (document.querySelector('.nav-icon[data-tab="skills"].active')) {
+            animateSkillBars();
         }
     </script>
 </body>
